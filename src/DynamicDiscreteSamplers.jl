@@ -77,8 +77,7 @@ function Random.rand(rng::AbstractRNG, rs::RejectionSampler)
     len = rs.track_info.length
     mask = rs.track_info.mask
     maxw = rs.track_info.maxw
-    bitsreuse = len <= 2048
-    bitsreuse ? rejection_loop_reuse(rng, rs, len, mask, maxw) : rejection_loop(rng, rs, len, mask, maxw)
+    len <= 2048 ? rejection_loop_reuse(rng, rs, len, mask, maxw) : rejection_loop(rng, rs, len, mask, maxw)
 end
 @inline function rejection_loop_reuse(rng, rs, len, mask, maxw)
     while true
